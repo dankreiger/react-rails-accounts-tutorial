@@ -1,4 +1,4 @@
-r=React;rd=r.DOM
+r=React;rd=React.DOM
 
 @Records = r.createClass
   getInitialState: ->
@@ -18,13 +18,15 @@ r=React;rd=r.DOM
   balance: ->
     @debits() + @credits()    
   addRecord: (record) ->
-    records = @state.records.slice()
-    records.push record
+    records = r.addons.update(@state.records, { $push: [record] })
     @setState records: records
+  updateRecord: (record, data) ->
+      index = @state.records.indexOf record
+      records = React.addons.update(@state.records, { $splice: [[index, 1, data]] })
+      @replaceState records: records    
   deleteRecord: (record) ->
-    records = @state.records.slice()
-    index = records.indexOf record
-    records.splice index, 1
+    index = @state.records.indexOf record
+    records = r.addons.update(@state.records, { $splice: [[index, 1]] })
     @replaceState records: records
   render: ->
     rd.div
@@ -48,4 +50,4 @@ r=React;rd=r.DOM
             rd.th null, 'Actions'                  
         rd.tbody null,
           for record in @state.records
-            r.createElement Record, key: record.id, record: record, handleDeleteRecord: @deleteRecord
+            r.createElement Record, key: record.id, record: record, handleDeleteRecord: @deleteRecord, handleEditRecord: @updateRecord
