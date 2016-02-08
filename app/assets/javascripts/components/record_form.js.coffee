@@ -42,6 +42,7 @@ r=React;rd=r.DOM
         className: 'form-group'
         rd.input
           type: 'number'
+          step: '0.01'
           className: 'form-control'
           placeholder: 'Amount'
           name: 'amount'
