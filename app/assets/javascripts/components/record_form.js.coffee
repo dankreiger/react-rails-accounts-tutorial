@@ -25,7 +25,7 @@ r=React;rd=r.DOM
         rd.input
           type: 'text'
           className: 'form-control'
-          placeholder: 'Date'
+          placeholder: 'yyyy-mm-dd'
           name: 'date'
           value: @state.date
           onChange: @handleChange
